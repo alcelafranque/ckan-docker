@@ -1,6 +1,8 @@
 FROM debian:stretch
 MAINTAINER seb&alce
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 #Installation des paquets 
 RUN apt-get -q -y update \
     && DEBIAN_FRONTEND=noninteractive apt-get -q -y upgrade \
@@ -43,7 +45,7 @@ RUN apt-get -q -y update \
 
 
 
-RUN  mkdir -p /usr/lib/ckan/default && mkdir -p /etc/ckan/default &&  virtualenv --no-site-packages /usr/lib/ckan/default &&. /usr/lib/ckan/default/bin/activate && pip install setuptools==20.4 && pip install -e 'git+https://github.com/ckan/ckan.git@ckan-2.7.2#egg=ckan' && pip install -r /usr/lib/ckan/default/src/ckan/requirements.txt && deactivate 
+RUN  mkdir -p /usr/lib/ckan/default && mkdir -p /etc/ckan/default &&  virtualenv --no-site-packages /usr/lib/ckan/default &&. /usr/lib/ckan/default/bin/activate && pip install setuptools==36.1 && pip install -e 'git+https://github.com/ckan/ckan.git@ckan-2.7.2#egg=ckan' && pip install -r /usr/lib/ckan/default/src/ckan/requirements.txt && deactivate 
 
 RUN . /usr/lib/ckan/default/bin/activate && mkdir -p /etc/ckan/default &&  /usr/lib/ckan/default/bin/paster make-config ckan /etc/ckan/default/production.ini
 
